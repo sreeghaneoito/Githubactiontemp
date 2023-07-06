@@ -1,0 +1,57 @@
+[
+  {
+    "keyword": "Feature",
+    "name": "Login Scenario",
+    "line": 1,
+    "id": "login-scenario",
+    "tags": [],
+    "uri": "e2e/features/login.feature",
+    "elements": [
+      {
+        "id": "login-scenario;as-a-user,-i-want-to-login-with--valid-userame-and-password",
+        "keyword": "Scenario",
+        "line": 3,
+        "name": "As a user, I want to login with  valid userame and password",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "match": {
+              "location": "e2e/features/support/init.js:20"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 60000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "User has navigated to Login page and username and password texts are visible and data is entered in both fields",
+            "match": {
+              "location": "e2e/features/step_defentions/loginStep.js:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 24794000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "match": {
+              "location": "e2e/features/support/init.js:25"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
