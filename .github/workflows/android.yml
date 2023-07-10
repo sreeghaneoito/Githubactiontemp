@@ -32,7 +32,7 @@ jobs:
       - name: Download Android Emulator Image
         run: |
           echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install $PACKAGE
-          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --force --name pixel_4 --device "pixel_4" --package $PACKAGE --sdcard 256M
+          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --force --name pixel_4 --device "emu" --package $PACKAGE --sdcard 256M
           # adb start-server
           $ANDROID_HOME/emulator/emulator -list-avds
           $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list device
@@ -49,8 +49,8 @@ jobs:
           echo "disk.dataPartition.size=2048m" >> $AVD_PATH/config.ini
           grep "size" $AVD_PATH/config.ini
         env:
-          AVD_NAME: pixel_4
-          AVD_PATH: /Users/runner/.android/avd/pixel_4.avd
+          AVD_NAME: emu
+          AVD_PATH: /Users/runner/.android/avd/emu.avd
 
       - name: Android Emulator
         timeout-minutes: 10
