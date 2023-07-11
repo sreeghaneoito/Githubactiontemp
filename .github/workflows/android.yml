@@ -22,10 +22,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: "npm"
-          cache-dependency-path: subdir/package-lock.json
-      - run: npm ci
-      - run: npm test
+          cache: "yarn"
+          cache-dependency-path: ./yarnlock
+      - run: yarn install
+      - run: yarn test
 
       - name: Use specific Java version for sdkmanager to work
         uses: actions/setup-java@v3
