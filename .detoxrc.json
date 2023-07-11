@@ -17,7 +17,7 @@
     },
     "android.emu.release": {
       "type": "android.apk",
-      "binaryPath": "android/app/build/outputs/apk/release/app-release.apk",
+      "binaryPath": "app/app-release.apk",
       "build": "cd android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && cd .."
     },
     "chrome": {
@@ -36,7 +36,7 @@
     "android.emu.release": {
       "type": "android.emulator",
       "name":"emu",
-      "binaryPath": "android/app/build/outputs/apk/release/app-release.apk",
+      "binaryPath": "app/app-release.apk",
       "build": "cd android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && cd .."
     }
   }
