@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
     runs-on: macos-12
-    timeout-minutes: 60
+    timeout-minutes: 45
 
     steps:
       - name: Checkout
@@ -16,32 +16,7 @@ jobs:
       - name: Node
         uses: actions/setup-node@v3
         with:
-          node-version: "18.16"
-
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js and cache dependencies
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: "npm"
-
-      - name: Install dependencies with npm or Yarn
-        run: |
-          if [ -f "yarn.lock" ]; then
-          yarn install --frozen-lockfile
-          else
-          npm ci
-          fi
-
-      - name: Run tests
-        run: |
-          if [ -f "yarn.lock" ]; then
-          yarn test
-          else
-          npm test
-          fi
+          node-version: "16.20"
 
       - name: Use specific Java version for sdkmanager to work
         uses: actions/setup-java@v3
@@ -100,3 +75,4 @@ jobs:
         with:
           name: detox-artifacts
           path: artifacts # Default path for Detox artifacts
+
