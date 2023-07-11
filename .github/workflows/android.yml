@@ -18,13 +18,30 @@ jobs:
         with:
           node-version: "18.16"
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js and cache dependencies
+        uses: actions/setup-node@v3
         with:
-          path: /home/ntpl-344/.cache/yarn/v6
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          node-version: 18
+          cache: "npm"
+
+      - name: Install dependencies with npm or Yarn
+        run: |
+          if [ -f "yarn.lock" ]; then
+          yarn install --frozen-lockfile
+          else
+          npm ci
+          fi
+
+      - name: Run tests
+        run: |
+          if [ -f "yarn.lock" ]; then
+          yarn test
+          else
+          npm test
+          fi
 
       - name: Use specific Java version for sdkmanager to work
         uses: actions/setup-java@v3
