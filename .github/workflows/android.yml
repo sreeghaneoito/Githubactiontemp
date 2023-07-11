@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 18
           cache: "yarn"
-          cache-dependency-path: ./yarnlock
+          cache-dependency-path: /home/ntpl-344/.cache/yarn/v6
       - run: yarn install
       - run: yarn test
 
