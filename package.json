@@ -223,7 +223,7 @@
         }
       },
       "android.emu.debug": {
-        "binaryPath": "application/app-debug.apk",
+        "binaryPath": "application/app-release.apk",
         "build": "cd android ; ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug ; cd -",
         "type": "android.emulator",
         "launchApp": "auto",
