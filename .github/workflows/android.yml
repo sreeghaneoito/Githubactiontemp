@@ -16,7 +16,19 @@ jobs:
       - name: Node
         uses: actions/setup-node@v3
         with:
-          node-version: "16.20"
+          node-version: "18.16"
+
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Cache Node.js dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Use specific Java version for sdkmanager to work
         uses: actions/setup-java@v3
@@ -26,45 +38,7 @@ jobs:
           architecture: "x64"
 
       - name: Install node_modules
-        run: |
-          yarn install
-
-      # - name: Download Android Emulator Image
-      #   run: |
-      #     echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install $PACKAGE
-      #     echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --force --name emu --package $PACKAGE --sdcard 256M
-      #     # adb start-server
-      #     $ANDROID_HOME/emulator/emulator -list-avds
-      #     $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list device
-      #     $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list avd
-      #   env:
-      #     PACKAGE: "system-images;android-30;default;x86_64"
-
-      # - name: Change Android Emulator settings
-      #   run: |
-      #     echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
-      #     mkdir -p /root/.android && touch /root/.android/repositories.cfg
-      #     echo "vm.heapSize=576" >> $AVD_PATH/config.ini
-      #     echo "hw.ramSize=2048" >> $AVD_PATH/config.ini
-      #     echo "disk.dataPartition.size=2048m" >> $AVD_PATH/config.ini
-      #     grep "size" $AVD_PATH/config.ini
-      #   env:
-      #     AVD_NAME: emu
-      #     AVD_PATH: /Users/runner/.android/avd/emu.avd
-
-      # - name: Android Emulator
-      #  timeout-minutes: 10
-      #  continue-on-error: true
-      #  run: |
-      #  echo "Starting emulator"
-      # nohup $ANDROID_HOME/emulator/emulator -avd emu -no-audio -no-snapshot -no-window &
-      # $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
-      # $ANDROID_HOME/platform-tools/adb devices
-      #echo "Emulator started"
-
-      #       - name: Build for detox
-      #         run: |
-      #           yarn detox_build_release
+        run: yarn install
 
       - name: Android Detox
         run: yarn run start && yarn run cucumber_release
@@ -74,5 +48,4 @@ jobs:
         if: failure()
         with:
           name: detox-artifacts
-          path: artifacts # Default path for Detox artifacts
-
+          path: artifacts
